@@ -4,24 +4,20 @@ import { useState } from "react";
 import Image from "next/image";
 import Weather from "@/components/Weather";
 import Spinner from "@/components/Spinner";
-// import { apiConfig } from "../";
 
 export default function Home() {
-  console.log(process.env.NEXT_PUBLIC_API_SECRET);
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(false);
-  // b122397059ec9834089504a2612b34a3
   const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_API_SECRET}`;
 
   const fetchWeather = (e) => {
     e.preventDefault();
-
     setLoading(true);
     axios
       .get(URL)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setWeather(response.data);
       })
       .catch((error) => {
@@ -55,13 +51,14 @@ export default function Home() {
                 <input
                   onChange={(e) => {
                     setCity(e.target.value);
+                    console.log(city);
                   }}
                   type="text"
                   placeholder="search city"
                   className="bg-transparent focus:outline-none"
                 />
               </div>
-              <button type="submit">
+              <button>
                 <BsSearch size={20} />
               </button>
             </form>
